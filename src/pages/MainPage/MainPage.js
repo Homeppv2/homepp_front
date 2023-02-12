@@ -1,24 +1,29 @@
 import React from 'react';
 import Header from "../../components/ui/Header/Header";
 import Footer from "../../components/ui/Footer/Footer";
-import GasSensorIcon from "../../components/icons/GasSensorIcon/GasSensorIcon";
+import OKGasSensorIcon from "../../components/icons/GasSensorIcon/OKGasSensorIcon";
 import OKSystemStatusIcon from "../../components/icons/SystemStatusIcon/OKSystemStatusIcon";
 import Item from "./Item/Item";
+import BADSystemStatusIcon from "../../components/icons/SystemStatusIcon/BADSystemStatusIcon";
+import {MAX_GAS_SENSOR} from "../../App";
+import BADGasSensorIcon from "../../components/icons/GasSensorIcon/BADGasSensorIcon";
 
-const MainPage = () => {
+const MainPage = (message) => {
+
+    console.log(message)
 
     const listItems = [
         {
             name: "System status",
             unit: null,
-            value: "OK",
-            icon: <OKSystemStatusIcon/>
+            value: message.text ? "OK" : "BAD",
+            icon: message.text ? <OKSystemStatusIcon/> : <BADSystemStatusIcon/>,
         },
         {
             name: "Gas sensor",
             unit: "%LED",
-            value: "000",
-            icon: <GasSensorIcon/>
+            value: message.text ? message.text : "null",
+            icon: !message.text || message.text < MAX_GAS_SENSOR ? <OKGasSensorIcon/> : <BADGasSensorIcon/>,
         },
     ]
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BadGasSensorIcon = () => {
+const FramingBadGasSensorIcon = () => {
     return (
         <svg width="53" height="63" viewBox="0 0 53 63" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_2453_2352)">
@@ -28,4 +28,4 @@ const BadGasSensorIcon = () => {
     );
 };
 
-export default BadGasSensorIcon;
+export default FramingBadGasSensorIcon;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GasSensorIcon = () => {
+const OKGasSensorIcon = () => {
     return (
         <svg width="26" height="38" viewBox="0 0 26 38" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -10,4 +10,4 @@ const GasSensorIcon = () => {
     );
 };
 
-export default GasSensorIcon;
+export default OKGasSensorIcon;

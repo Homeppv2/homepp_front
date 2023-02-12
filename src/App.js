@@ -3,15 +3,48 @@ import {useEffect, useState} from "react";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotificationModal from "./components/shared/NotificationModal/NotificationModal";
 
+export const URL = "ws://localhost:8000/room/1?name=client"
+export const MAX_GAS_SENSOR = 0.5
+
 function App({child}) {
 
+
     const isAuth = localStorage.getItem("auth")
-    const [notificationIsPresent, setNotificationIsPresent] = useState(true)
+    const [notificationIsPresent, setNotificationIsPresent] = useState(false)
     const navigate = useNavigate()
+
+    const [websckt, setWebsckt] = useState();
+    const [message, setMessage] = useState({});
+
+    const wsRun = () => {
+        const ws = new WebSocket(URL)
+        ws.onopen = () => {
+            console.log('CONNECT')
+        };
+
+        ws.onmessage = (e) => {
+            const receivedMessage = JSON.parse(e.data);
+            setMessage(receivedMessage);
+            console.log(receivedMessage)
+        };
+        setWebsckt(ws);
+    }
+
+    useEffect(() => {
+        if (message.text) {
+            if (message.text >= MAX_GAS_SENSOR) {
+                setNotificationIsPresent(true)
+            }
+        } else {
+            setNotificationIsPresent(false)
+        }
+    }, [message])
 
     useEffect(() => {
         if (!isAuth) {
             navigate("../login")
+        } else {
+            wsRun()
         }
     }, [isAuth, navigate])
 
@@ -22,9 +55,9 @@ function App({child}) {
                 {
                     isAuth
                         ?
-                        child()
+                        child(message)
                         :
-                        <LoginPage/>
+                        <LoginPage wsRun={wsRun}/>
                 }
                 {
                     (notificationIsPresent && isAuth) &&

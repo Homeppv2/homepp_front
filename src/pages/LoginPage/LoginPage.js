@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({wsRun}) => {
 
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
     const navigate = useNavigate()
 
+
     const loginAction = () => {
         console.log(login, password)
         if (login === "admin" && password === "password") {
             localStorage.setItem("auth", "1")
+            wsRun()
             setMessage("")
             navigate("/")
         } else {

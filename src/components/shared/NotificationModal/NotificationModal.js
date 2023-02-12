@@ -2,7 +2,7 @@ import React from 'react';
 import CloseIcon from "../../icons/CloseIcon";
 import SettingsIcon from "../../icons/SettingsIcon";
 import EllipseIcon from "../../icons/EllipseIcon";
-import BadGasSensorIcon from "../../icons/GasSensorIcon/BadGasSenserIcon";
+import FramingBadGasSensorIcon from "../../icons/GasSensorIcon/FramingBadGasSenserIcon";
 
 const NotificationBlock = ({closeAction}) => {
 
@@ -37,7 +37,7 @@ const NotificationBlock = ({closeAction}) => {
                         <EllipseIcon/>
                         <p className="text-h1 text-red mt-[-8.5rem]">006</p>
                         <div className="mt-[-1rem]">
-                            <BadGasSensorIcon/>
+                            <FramingBadGasSensorIcon/>
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
