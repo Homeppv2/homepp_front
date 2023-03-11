@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotificationModal from "./components/shared/NotificationModal/NotificationModal";
 
-export const URL = "ws://95.163.236.35:8000/room/1?name=Seva"
+export const URL = "ws://95.163.236.35:8001/room/1?name=Seva"
 export const MAX_GAS_SENSOR = 100
 
 function App({child}) {
