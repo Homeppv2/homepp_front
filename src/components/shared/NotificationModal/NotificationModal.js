@@ -1,12 +1,17 @@
 import React from 'react';
 import CloseIcon from "../../icons/CloseIcon";
 import SettingsIcon from "../../icons/SettingsIcon";
-import EllipseIcon from "../../icons/EllipseIcon";
 import FramingBadGasSensorIcon from "../../icons/GasSensorIcon/FramingBadGasSenserIcon";
+import NotificationPlan from "../../../assets/notificationPlan.png"
 
-const NotificationBlock = ({closeAction}) => {
+const NotificationModal = ({closeAction, message}) => {
 
-    const listNotifications = [
+    message.text = "Gas leak detected!"
+
+    message.place = "Kitchen"
+    message.time = "9:48:43"
+
+    message.listNotifications = [
         {
             time: "9:48:53",
             description: "Alarm drill started via app"
@@ -21,6 +26,9 @@ const NotificationBlock = ({closeAction}) => {
         }
     ]
 
+    message.plan = NotificationPlan
+
+
     return (
         <div className="absolute inset-0 h-full w-full bg-dark_dark_bg px-[2rem] py-[1.4rem]">
             <div className="">
@@ -34,21 +42,20 @@ const NotificationBlock = ({closeAction}) => {
                 </div>
                 <div className="flex flex-col items-center mt-[2rem]">
                     <div className="flex flex-col items-center">
-                        <EllipseIcon/>
-                        <p className="text-h1 text-red mt-[-8.5rem]">006</p>
-                        <div className="mt-[-1rem]">
-                            <FramingBadGasSensorIcon/>
-                        </div>
+                        <FramingBadGasSensorIcon/>
                     </div>
                     <div className="flex flex-col items-center">
-                        <p className="text-big text-red">Gas leak detected!</p>
-                        <p className="text-default text-dark_text">Kitchen | 9:48:43</p>
+                        <p className="text-big text-red">{message.text}</p>
+                        <p className="text-default text-dark_text">{message.place} | {message.time}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <img src={message.plan} alt=""/>
                     </div>
                     <div
-                        className="rounded-default bg-dark_light_bg drop-shadow-default w-full pl-[2.5rem] py-[1.4rem] mt-[3.2rem]">
+                        className="rounded-default bg-dark_light_bg drop-shadow-default w-full pl-[2.5rem] py-[1.4rem] pr-[1rem] mt-[2rem]">
                         {
-                            listNotifications.map((item, index) =>
-                                <div className="flex flex-row gap-[4rem]" key={item.time + index}>
+                            message.listNotifications.map((item, index) =>
+                                <div className="flex flex-row gap-[2rem]" key={item.time + index}>
                                     <p className="text-default text-dark_text">{item.time}</p>
                                     <p className="text-default text-dark_text">{item.description}</p>
                                 </div>)
@@ -60,8 +67,11 @@ const NotificationBlock = ({closeAction}) => {
                         </p>
                         <div className="h-[0.12rem] w-[2.2rem] bg-dark_text"/>
                     </button>
-                    <button className="bg-dark_text rounded-default px-[3.5rem] py-[0.5rem] mt-[4rem]">Turn off the
-                        alarm
+                    <button className="bg-dark_text rounded-default px-[3.5rem] py-[0.5rem] mt-[1.5rem]">
+                        Turn off the alarm
+                    </button>
+                    <button className="bg-dark_text rounded-default px-[3.5rem] py-[0.5rem] mt-[1.5rem]">
+                        Сonfirm the alarm
                     </button>
                 </div>
             </div>
@@ -69,4 +79,4 @@ const NotificationBlock = ({closeAction}) => {
     );
 };
 
-export default NotificationBlock;
+export default NotificationModal;

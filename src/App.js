@@ -61,7 +61,7 @@ function App({child}) {
                 }
                 {
                     (notificationIsPresent && isAuth) &&
-                    <NotificationModal closeAction={() => setNotificationIsPresent((prev) => !prev)}/>
+                    <NotificationModal closeAction={() => setNotificationIsPresent((prev) => !prev)} message={{}}/>
                 }
             </div>
         </div>

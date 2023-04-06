@@ -25,6 +25,18 @@ const MainPage = (message) => {
             value: message.text ? message.text : "null",
             icon: !message.text || message.text < MAX_GAS_SENSOR ? <OKGasSensorIcon/> : <BADGasSensorIcon/>,
         },
+        {
+            name: "Smoke sensor",
+            unit: "%LED",
+            value: message.text ? message.text : "null",
+            icon: !message.text || message.text < MAX_GAS_SENSOR ? <OKGasSensorIcon/> : <BADGasSensorIcon/>,
+        },
+        {
+            name: "Water sensor",
+            unit: "%LED",
+            value: message.text ? message.text : "null",
+            icon: !message.text || message.text < MAX_GAS_SENSOR ? <OKGasSensorIcon/> : <BADGasSensorIcon/>,
+        },
     ]
 
     return (
