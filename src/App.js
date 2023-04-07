@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import NotificationModal from "./components/shared/NotificationModal/NotificationModal";
 import MainPage from "./pages/MainPage/MainPage";
 
-const CLIENT_ID = "174467fb-1c8a-4ad6-84c1-05389ab1c914"
+const CLIENT_ID = "2b70931d-30f0-4a12-a982-a0d996d93417"
 export const URL_WS = `ws://95.163.236.35:8001/controllers/connect/ws?client_id=${CLIENT_ID}`
 export const URL_HTTP = `http://95.163.236.35:8001`
 export const MAX_GAS_SENSOR = 100
