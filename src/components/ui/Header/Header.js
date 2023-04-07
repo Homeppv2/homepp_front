@@ -4,12 +4,12 @@ import SearchIcon from "../../icons/SearchIcon";
 import ConnectionIcon from "../../icons/ConnectionIcon";
 import RainIcon from "../../icons/WeatherIcon/RainIcon";
 
-const Header = () => {
+const Header = ({actionLogOut}) => {
     return (
         <header
             className="px-[2rem] bg-dark_light_bg py-[1.4rem] w-full flex flex-row justify-between items-center drop-shadow-default">
             <div className="flex flex-row items-center">
-                <AvatarBlock text={"E"}/>
+                <AvatarBlock actionOnClick={actionLogOut} text={"Exit"}/>
                 <div className="ml-[2.5rem] mr-[1.8rem]">
                     <ConnectionIcon/>
                 </div>

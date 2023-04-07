@@ -34,7 +34,7 @@ module.exports = {
                 "h2": "2.5rem",
                 "gigant": "2rem",
                 "big": "1.6rem",
-                "default": "1.4rem",
+                "default": "1.2rem",
                 "small": "1.1rem",
             },
             dropShadow: {

@@ -1,12 +1,34 @@
 import React from 'react';
 import CloseIcon from "../../icons/CloseIcon";
 import SettingsIcon from "../../icons/SettingsIcon";
-import FramingBadGasSensorIcon from "../../icons/GasSensorIcon/FramingBadGasSenserIcon";
+import FramingBadSmokeSensorIcon from "../../icons/SmokeSensorIcon/FramingBadSmokeSensorIcon";
 import NotificationPlan from "../../../assets/notificationPlan.png"
+import {GAS_SENSOR_TYPE, SMOKE_SENSOR_TYPE, WATER_SENSOR_TYPE} from "../../../App";
+import FramingBadGasSensorIcon from "../../icons/GasSensorIcon/FramingBadGasSensorIcon";
+import FramingBadWaterSensorIcon from "../../icons/WaterSensorIcon/FramingBadWaterSensorIcon";
 
 const NotificationModal = ({closeAction, message}) => {
 
-    message.text = "Gas leak detected!"
+    switch (message.type) {
+        case GAS_SENSOR_TYPE: {
+            message.text = "Gas leak detected!"
+            message.icon = <FramingBadGasSensorIcon/>
+            break
+        }
+        case SMOKE_SENSOR_TYPE: {
+            message.text = "Smoke leak detected!"
+            message.icon = <FramingBadSmokeSensorIcon/>
+            break
+        }
+        case WATER_SENSOR_TYPE: {
+            message.text = "Water leak detected!"
+            message.icon = <FramingBadWaterSensorIcon/>
+            break
+        }
+        default: {
+            break
+        }
+    }
 
     message.place = "Kitchen"
     message.time = "9:48:43"
@@ -42,7 +64,9 @@ const NotificationModal = ({closeAction, message}) => {
                 </div>
                 <div className="flex flex-col items-center mt-[2rem]">
                     <div className="flex flex-col items-center">
-                        <FramingBadGasSensorIcon/>
+                        {
+                            message.icon
+                        }
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-big text-red">{message.text}</p>

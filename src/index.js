@@ -5,6 +5,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 import App from "./App";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import {CookiesProvider} from "react-cookie";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <CookiesProvider>
+            <RouterProvider router={router}/>
+        </CookiesProvider>
     </React.StrictMode>
 );
