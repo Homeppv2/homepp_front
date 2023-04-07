@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom"
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotificationModal from "./components/shared/NotificationModal/NotificationModal";
 import MainPage from "./pages/MainPage/MainPage";
@@ -16,7 +16,7 @@ export const SMOKE_SENSOR_TYPE = 'smoke'
 
 function App() {
     const navigate = useNavigate()
-    const [render, setRender] = useState(false)
+    const render = useRef(false)
     const [socket, setSocket] = useState()
     const [notificationIsPresent, setNotificationIsPresent] = useState(false)
     const [message, setMessage] = useState({});
@@ -76,8 +76,8 @@ function App() {
         if (!isAuth) {
             navigate("../login")
         } else {
-            if (!render) {
-                setRender(true)
+            if (!render.current) {
+                render.current = true
                 wsRun()
             }
         }
