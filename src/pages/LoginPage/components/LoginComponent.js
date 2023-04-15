@@ -29,7 +29,6 @@ const LoginComponent = ({wsRun, setLoginView}) => {
             return formBody
         }
         const loginAction = async () => {
-            console.log(username, password)
             let details = {
                 username: username,
                 password: password

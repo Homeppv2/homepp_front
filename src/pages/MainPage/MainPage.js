@@ -46,7 +46,7 @@ const MainPage = ({message, actionLogOut, connectionStatusWS}) => {
             icon: message.type === WATER_SENSOR_TYPE && message.message < MAX_WATER_SENSOR ?
                 <OKSmokeSensorIcon/> :
                 <BADSmokeSensorIcon/>,
-        },
+        }
     ])
 
     useEffect(() => {
@@ -100,8 +100,8 @@ const MainPage = ({message, actionLogOut, connectionStatusWS}) => {
     return (
         <div className="flex flex-col h-full">
             <Header actionLogOut={actionLogOut}/>
-            <main className="grow">
-                <div className="grid grid-cols-2 px-[2rem] gap-[2rem] mt-[3.2rem]">
+            <main className="grow overflow-auto px-[2rem] py-[2rem]">
+                <div className="grid grid-cols-2 gap-[2rem]">
                     {
                         listItems.map((item, index) =>
                             <Item value={item.value} unit={item.unit} icon={item.icon} name={item.name}
@@ -110,7 +110,7 @@ const MainPage = ({message, actionLogOut, connectionStatusWS}) => {
                     }
                 </div>
             </main>
-            <Footer/>
+            <Footer activeItem={""}/>
         </div>
     );
 };

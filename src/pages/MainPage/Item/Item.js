@@ -3,7 +3,7 @@ import React from 'react';
 const Item = ({name, value, unit, icon}) => {
     return (
         <button className="bg-dark_light_bg drop-shadow-default pl-[2.4rem] py-[1.6rem] rounded-default flex flex-col">
-            <p className="text-dark_text">
+            <p className="text-white">
                 {name}
             </p>
             <div className="flex flex-row mt-[1.5rem] items-center grow gap-[1.2rem]">

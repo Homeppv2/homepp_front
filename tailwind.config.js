@@ -11,7 +11,8 @@ module.exports = {
             "320px": "320px"
         },
         borderRadius: {
-            "default": "1rem"
+            "default": "1rem",
+            "round": "50%"
         },
         extend: {
             colors: {
@@ -39,6 +40,9 @@ module.exports = {
             },
             dropShadow: {
                 "default": "0px 0px 15px rgba(0, 0, 0, 0.1)"
+            },
+            boxShadow: {
+                "default": "0px 4px 30px rgba(0, 0, 0, 0.2);"
             }
         },
     },

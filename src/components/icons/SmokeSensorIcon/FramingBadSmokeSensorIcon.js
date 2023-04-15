@@ -10,7 +10,7 @@ const FramingBadSmokeSensorIcon = () => {
             </g>
             <defs>
                 <filter id="filter0_d_2720_2576" x="0.818182" y="0.818182" width="99.5756" height="118.364"
-                        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                     <feFlood floodOpacity="0" result="BackgroundImageFix"/>
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                                    result="hardAlpha"/>

@@ -1,8 +1,15 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 
-const MenuItem = ({icon, text, active}) => {
+const MenuItem = ({icon, text, active, route}) => {
+
+    const navigate = useNavigate()
+    const onClick = () => {
+        navigate(`../${route}`)
+    }
+
     return (
-        <button className="flex flex-col justify-center items-center gap-[1rem]">
+        <button onClick={onClick} className="flex flex-col justify-center items-center gap-[1rem]">
             {
                 icon
             }

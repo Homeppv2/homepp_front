@@ -6,15 +6,20 @@ import MainPage from "./pages/MainPage/MainPage";
 import App from "./App";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import {CookiesProvider} from "react-cookie";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App child={MainPage}/>
+        element: <App child={MainPage} route={"main"}/>
     },
     {
         path: "/login",
         element: <App child={LoginPage}/>
+    },
+    {
+        path: "/settings",
+        element: <App child={SettingsPage} route={"settings"}/>
     },
 ])
 
