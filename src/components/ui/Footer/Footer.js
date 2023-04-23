@@ -7,6 +7,8 @@ import MenuItem from "./MenuItem/MenuItem";
 import DefaultOverviewIcon from "../../icons/MenuIcon/OverViewIcon/DefaultOverviewIcon";
 import ActiveSecurityIcon from "../../icons/MenuIcon/SecurityIcon/ActiveSecurityIcon";
 import ActiveScenesIcon from "../../icons/MenuIcon/ScenesIcon/ActiveScenesIcon";
+import DefaultSystemIcon from "../../icons/MenuIcon/SystemIcon/DefaultSystemIcon";
+import ActiveSystemIcon from "../../icons/MenuIcon/SystemIcon/ActiveSystemIcon";
 
 const Footer = ({activeItem}) => {
 
@@ -27,6 +29,12 @@ const Footer = ({activeItem}) => {
             "text": "Overview",
             "icon": activeItem === "" ? <ActiveOverviewIcon/> : <DefaultOverviewIcon/>,
             "active": activeItem === "",
+            "route": ""
+        },
+        {
+            "text": "System",
+            "icon": activeItem === "system" ? <ActiveSystemIcon/> : <DefaultSystemIcon/>,
+            "active": activeItem === "system",
             "route": ""
         },
         {
