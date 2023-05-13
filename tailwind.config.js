@@ -22,7 +22,11 @@ module.exports = {
                 "light_text": "#2C2E2F",
                 "dark_light_bg": "#323638",
                 "dark_main_bg": "#242627",
-                "dark_dark_bg": "#232525"
+                "dark_dark_bg": "#232525",
+                "dark_dark_special": "#202223",
+                "dark_light_special": "#313638",
+                "dark_dark_bg_special": "#262829",
+                "dark_blue_special": "#161C22"
             },
             width: {
                 "320px": "320px",
@@ -35,6 +39,7 @@ module.exports = {
                 "h2": "2.5rem",
                 "gigant": "2rem",
                 "big": "1.6rem",
+                "middle": "1.4rem",
                 "default": "1.2rem",
                 "small": "1.1rem",
             },
