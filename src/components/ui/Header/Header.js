@@ -7,7 +7,7 @@ import RainIcon from "../../icons/WeatherIcon/RainIcon";
 const Header = ({actionLogOut}) => {
     return (
         <header
-            className="px-[2rem] bg-dark_light_bg py-[1.4rem] w-full flex flex-row justify-between items-center drop-shadow-default">
+            className="px-[2rem] bg-dark_light_bg py-[1.4rem] w-full flex flex-row justify-between items-center drop-shadow-default z-20">
             <div className="flex flex-row items-center">
                 <AvatarBlock actionOnClick={actionLogOut} text={"Exit"}/>
                 <div className="ml-[2.5rem] mr-[1.8rem]">

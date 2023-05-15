@@ -7,6 +7,7 @@ import App from "./App";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import {CookiesProvider} from "react-cookie";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import ScenesPage from "./pages/ScenesPage/ScenesPage";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: "/settings",
         element: <App child={SettingsPage} route={"settings"}/>
+    },
+    {
+        path: "/scenes",
+        element: <App child={ScenesPage} route={"scenes"}/>
     },
 ])
 

@@ -40,7 +40,7 @@ const AddDeviceScreen = ({closeAction, deviceID}) => {
     }
 
     return (
-        <div className="">
+        <div className="px-[2rem] py-[2rem] h-full w-full">
             <div className="">
                 <div className="flex flex-row justify-between">
                     <button className="">

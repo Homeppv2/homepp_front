@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Header from "../../components/ui/Header/Header";
 import Footer from "../../components/ui/Footer/Footer";
 import DefaultSmokeSensorIcon from "../../components/icons/SmokeSensorIcon/DefaultSmokeSensorIcon";
-import ContentScreen from "./screens/ContentScreen";
+import ContentDeviceScreen from "./screens/ContentDeviceScreen";
 import AddDeviceScreen from "./screens/AddDeviceScreen";
 import DetailDeviceScreen from "./screens/DetailDeviceScreen";
 
@@ -15,28 +15,35 @@ const SettingsPage = ({actionLogOut}) => {
     const [listItems, setListItems] = useState([
         {
             name: "Gas sensor",
-            icon: <DefaultSmokeSensorIcon/>,
+            icon: <DefaultSmokeSensorIcon width={15}/>,
             room: "Kitchen",
+            unit: "%LED",
+            value: 45,
         },
         {
             name: "Smoke sensor",
-            icon: <DefaultSmokeSensorIcon/>,
-            room: "Bathroom"
+            icon: <DefaultSmokeSensorIcon width={15}/>,
+            room: "Bathroom",
+            unit: "%LED",
+            value: 45,
         },
         {
             name: "Water sensor",
-            icon: <DefaultSmokeSensorIcon/>,
-            room: "Bedroom"
+            icon: <DefaultSmokeSensorIcon width={15}/>,
+            room: "Bedroom",
+            unit: "%LED",
+            value: 45,
         }
     ])
 
     const addDevice = (device) => {
         const temp = [...listItems]
-        console.log(device)
         const newDevice = {
             name: "Water sensor",
             icon: <DefaultSmokeSensorIcon/>,
-            room: device.location.title
+            room: device.location.title,
+            unit: "%",
+            value: 58
         }
         temp.push(newDevice)
         setListItems([...temp])
@@ -53,13 +60,17 @@ const SettingsPage = ({actionLogOut}) => {
 
     return (
         <div className="flex flex-col h-full">
-            <Header actionLogOut={actionLogOut}/>
+            {
+                flagScreen !== ADD_FLAG_SCREEN && flagScreen !== DETAIL_FLAG_SCREEN &&
+                <Header actionLogOut={actionLogOut}/>
+            }
             <main
-                className={`grow overflow-auto px-[2rem] py-[2rem] ${flagScreen === ADD_FLAG_SCREEN ? "bg-dark_light_bg" : ""}`}>
+                className={`grow overflow-auto px-[2rem] py-[2rem]`}>
                 {
                     {
-                        "content": <ContentScreen addDeviceAction={() => setFlagScreen(ADD_FLAG_SCREEN)}
-                                                  listItems={listItems} activeDetailDeviceAction={openDetailDevice}/>,
+                        "content": <ContentDeviceScreen addDeviceAction={() => setFlagScreen(ADD_FLAG_SCREEN)}
+                                                        listItems={listItems}
+                                                        activeDetailDeviceAction={openDetailDevice}/>,
                         "addDevice": <AddDeviceScreen closeAction={() => setFlagScreen(CONTENT_FLAG_SCREEN)}
                                                       addDeviceAction={addDevice}/>,
                         "detailDevice": <DetailDeviceScreen deviceID={detailDeviceID}
@@ -67,7 +78,10 @@ const SettingsPage = ({actionLogOut}) => {
                     }[flagScreen]
                 }
             </main>
-            <Footer activeItem={"settings"}/>
+            {
+                flagScreen !== ADD_FLAG_SCREEN && flagScreen !== DETAIL_FLAG_SCREEN &&
+                <Footer activeItem={"settings"}/>
+            }
         </div>
     );
 };

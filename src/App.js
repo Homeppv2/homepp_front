@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import NotificationModal from "./components/shared/NotificationModal/NotificationModal";
 import MainPage from "./pages/MainPage/MainPage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import ScenesPage from "./pages/ScenesPage/ScenesPage";
 
 const CLIENT_ID = "2b70931d-30f0-4a12-a982-a0d996d93417"
 export const URL_WS = `ws://95.163.236.35:8001/controllers/connect/ws?client_id=${CLIENT_ID}`
@@ -91,12 +92,12 @@ function App({route}) {
                 {
                     isAuth
                         ?
-                        route === "main"
-                            ?
-                            <MainPage message={message} actionLogOut={() => logOut()}
-                                      connectionStatusWS={connectionStatusWS}/>
-                            :
-                            <SettingsPage actionLogOut={() => logOut()}/>
+                        {
+                            "main": <MainPage message={message} actionLogOut={() => logOut()}
+                                              connectionStatusWS={connectionStatusWS}/>,
+                            "settings": <SettingsPage actionLogOut={() => logOut()}/>,
+                            "scenes": <ScenesPage actionLogOut={() => logOut()}/>
+                        }[route]
                         :
                         <LoginPage wsRun={() => wsRun()}/>
                 }
