@@ -15,14 +15,6 @@ const LoginScreen = ({wsRun, setLoginView}) => {
         const [passwordView, setPasswordView] = useState(false)
         const navigate = useNavigate()
 
-        const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
-
-        const createCookie = (data) => {
-            setCookie("auth", data, {
-                path: "/"
-            });
-        }
-
         const createFormBody = (details) => {
             let formBody = [];
             for (let property in details) {
@@ -39,17 +31,21 @@ const LoginScreen = ({wsRun, setLoginView}) => {
                 password: password
             }
             const requestOptions = {
-                method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                method: 'POST',
                 body: createFormBody(details)
             }
-            let responseData = await fetch(`${URL_HTTP}/users/login`, requestOptions).then(r => {
-                return r.json()
-            })
+            let responseData
+            try {
+                responseData = await fetch(`${URL_HTTP}/users/login`, requestOptions).then(r => {
+                    return r.json()
+                })
+            } catch (e) {
+                console.log(e.message)
+            }
             if (!responseData.detail) {
                 console.log(responseData)
-                localStorage.setItem("auth", "1")
-                createCookie(responseData)
+                localStorage.setItem("auth", responseData)
                 setMessage("")
                 navigate("/")
                 wsRun()

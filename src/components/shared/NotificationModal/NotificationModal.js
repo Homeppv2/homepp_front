@@ -52,7 +52,7 @@ const NotificationModal = ({closeAction, message}) => {
 
 
     return (
-        <div className="absolute inset-0 h-full w-full bg-dark_dark_bg px-[2rem] py-[1.4rem]">
+        <div className="z-30 absolute inset-0 h-full w-full bg-dark_dark_bg px-[2rem] py-[1.4rem]">
             <div className="">
                 <div className="flex flex-row justify-between">
                     <button className="" onClick={closeAction}>

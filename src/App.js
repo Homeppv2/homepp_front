@@ -6,8 +6,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import ScenesPage from "./pages/ScenesPage/ScenesPage";
 
-const CLIENT_ID = "2b70931d-30f0-4a12-a982-a0d996d93417"
-export const URL_WS = `ws://95.163.236.35:8001/controllers/connect/ws?client_id=${CLIENT_ID}`
+export const URL_WS = `ws://95.163.236.35:8001/controllers/connect/ws`
 export const URL_HTTP = `http://95.163.236.35:8001`
 export const MAX_GAS_SENSOR = 100
 export const GAS_SENSOR_TYPE = 'gas'
@@ -29,8 +28,7 @@ function App({route}) {
 
     const wsRun = () => {
 
-        let socket = (new WebSocket(URL_WS))
-
+        let socket = new WebSocket(URL_WS + `?session_id=${localStorage.getItem("auth")}`)
         socket.onopen = () => {
             console.log('CONNECT')
             setConnectionStatusWS(true)
@@ -51,16 +49,16 @@ function App({route}) {
                 }
             }
         };
+        setSocket(socket)
 
         socket.onclose = () => {
             setConnectionStatusWS(false)
             console.log("DISCONNECT")
         }
 
-        socket.onerror = () => {
+        socket.onerror = (error) => {
             socket.close()
         }
-        setSocket(socket)
     }
 
     const closeWs = () => {
@@ -68,7 +66,21 @@ function App({route}) {
         socket.close()
     }
 
-    const logOut = () => {
+    const logOut = async () => {
+        const requestOptions = {
+            method: 'POST',
+            credentials: 'same-origin'
+        }
+        let responseData = await fetch(`${URL_HTTP}/users/logout`, requestOptions).then(r => {
+            return r.json()
+        })
+        if (!responseData.detail) {
+            console.log(responseData)
+            localStorage.removeItem("auth")
+            wsRun()
+        } else {
+            console.log(responseData)
+        }
         localStorage.removeItem("auth")
         navigate("../login")
         closeWs()
