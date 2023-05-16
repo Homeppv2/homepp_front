@@ -2,29 +2,45 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import MainPage from "./pages/MainPage/MainPage";
 import App from "./App";
-import LoginPage from "./pages/LoginPage/LoginPage";
 import {CookiesProvider} from "react-cookie";
-import SettingsPage from "./pages/SettingsPage/SettingsPage";
-import ScenesPage from "./pages/ScenesPage/ScenesPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App child={MainPage} route={"main"}/>
+        element: <App route={"main"}/>
     },
     {
         path: "/login",
-        element: <App child={LoginPage}/>
+        element: <App/>
     },
     {
         path: "/settings",
-        element: <App child={SettingsPage} route={"settings"}/>
+        element: <App route={"settings"}/>
     },
     {
         path: "/scenes",
-        element: <App child={ScenesPage} route={"scenes"}/>
+        element: <App route={"scenes"}/>
+    },
+    {
+        path: "/rooms",
+        element: <App route={"rooms"}/>
+    },
+    {
+        path: "/system-status",
+        element: <App route={"system-status"}/>
+    },
+    {
+        path: "/users",
+        element: <App route={"users"}/>
+    },
+    {
+        path: "/security",
+        element: <App route={"security"}/>
+    },
+    {
+        path: "/settings",
+        element: <App route={"settings"}/>
     },
 ])
 
