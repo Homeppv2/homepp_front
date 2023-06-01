@@ -112,8 +112,7 @@ function App({route}) {
         <>
             {
                 innerWidth < 650 &&
-                <div className="flex justify-center items-center w-full">
-                    {/*<div className="relative w-320px h-650px bg-dark_main_bg">*/}
+                <div className="flex justify-center items-center w-full h-full">
                     <div className="relative min-w-320px min-h-650px w-full h-full bg-dark_main_bg">
                         {
                             isAuth

@@ -2,7 +2,8 @@ import React from 'react';
 
 const MainPageItemMobile = ({name, value, unit, icon}) => {
     return (
-        <button className="bg-dark_light_bg drop-shadow-default pl-[2.4rem] py-[1.6rem] rounded-default flex flex-col">
+        <button
+            className="bg-dark_light_bg drop-shadow-default pl-[2.4rem] py-[1.6rem] rounded-default flex flex-col w-full h-full">
             <p className="text-white">
                 {name}
             </p>
