@@ -9,8 +9,8 @@ import Menu from "./components/ui/Menu/Menu";
 import Header from "./components/ui/Header/Header/Header";
 import MainPage from "./pages/MainPage/MainPage/MainPage";
 
-export const URL_WS = `ws://95.163.236.35:8001/controllers/connect/ws`
-export const URL_HTTP = `http://95.163.236.35:8001`
+export const URL_WS = `ws://194.67.78.39:8001/controllers/connect/ws`
+export const URL_HTTP = `http://194.67.78.39:8001`
 export const MAX_GAS_SENSOR = 100
 export const GAS_SENSOR_TYPE = 'gas'
 export const MAX_SMOKE_SENSOR = 100
