@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 
 const MenuItem = ({activeItem, text, icon, route, onClickAction}) => {
 
-    console.log(text + " " + activeItem)
     const navigate = useNavigate()
     const onClick = () => {
         navigate(`../${route}`)

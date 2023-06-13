@@ -17,6 +17,7 @@ export const MAX_SMOKE_SENSOR = 100
 export const WATER_SENSOR_TYPE = 'water'
 export const MAX_WATER_SENSOR = 100
 export const SMOKE_SENSOR_TYPE = 'smoke'
+export const AIR_QUALITY_SENSOR_TYPE = 'air_quality'
 
 function App({route}) {
 
@@ -40,7 +41,6 @@ function App({route}) {
 
         let socket = new WebSocket(URL_WS + `?session_id=${localStorage.getItem("auth")}`)
         socket.onopen = () => {
-            console.log('CONNECT')
             setConnectionStatusWS(true)
         };
 
@@ -48,7 +48,6 @@ function App({route}) {
             const receivedMessage = JSON.parse(e.data);
             setMessage(receivedMessage);
             const currentMessage = {...receivedMessage}
-            console.log(receivedMessage)
             if (receivedMessage.message && receivedMessage.type) {
                 const gasIsBad = receivedMessage.type === GAS_SENSOR_TYPE && receivedMessage.message >= MAX_GAS_SENSOR
                 const smokeIsBad = receivedMessage.type === SMOKE_SENSOR_TYPE && receivedMessage.message >= MAX_SMOKE_SENSOR
@@ -63,7 +62,6 @@ function App({route}) {
 
         socket.onclose = () => {
             setConnectionStatusWS(false)
-            console.log("DISCONNECT")
         }
 
         socket.onerror = (error) => {
@@ -72,11 +70,9 @@ function App({route}) {
     }
 
     const closeWs = () => {
-        console.log(socket)
         socket.close()
     }
 
-    console.log(window.innerWidth)
     const logOut = async () => {
         const requestOptions = {
             method: 'POST',
@@ -85,8 +81,8 @@ function App({route}) {
         let responseData = await fetch(`${URL_HTTP}/users/logout`, requestOptions).then(r => {
             return r.json()
         })
+        console.log(responseData.detail)
         if (!responseData.detail) {
-            console.log(responseData)
             localStorage.removeItem("auth")
             wsRun()
         } else {

@@ -12,8 +12,6 @@ import SceneRoomBathroomIcon from "../../../../components/icons/SceneRoomBathroo
 const AddSceneBlockMobile = ({closeAction, addSceneAction}) => {
     const [categoryID, setCategoryID] = useState()
     const [rooms, setRooms] = useState([])
-    console.log(categoryID)
-    console.log(rooms)
 
     const categoryList = [
         {
@@ -111,7 +109,6 @@ const AddSceneBlockMobile = ({closeAction, addSceneAction}) => {
                 if (rooms[i] !== id) {
                     temp.push(rooms[i])
                 }
-                console.log(id)
             }
         }
         setRooms(temp)

@@ -4,7 +4,6 @@ import DefaultPlusIcon from "../../../../components/icons/PlusIcon/DefaultPlusIc
 import Select from "../../../../components/ui/Select/Select";
 
 const ContentSceneScreenMobile = ({listItems, scenesItems, flagScreen, addSceneAction, activeDetailSceneAction}) => {
-    console.log(flagScreen)
     return (
         <>
             <div className="px-[2rem] py-[2rem]">
