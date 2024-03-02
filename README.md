@@ -1,4 +1,4 @@
-[![build](https://github.com/Homeppv2/homepp_front/actions/workflows/docker-image.yml/badge.svg?branch=master)](https://github.com/Homeppv2/homepp_front/actions/workflows/docker-image.yml)
+[![Docker Image CI](https://github.com/Homeppv2/homepp_front/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Homeppv2/homepp_front/actions/workflows/docker-image.yml)
 
 # Getting Started with Create React App
 
