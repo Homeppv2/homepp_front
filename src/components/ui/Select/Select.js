@@ -10,7 +10,7 @@ const Select = ({listItem, label, value, onChangeAction, bgFieldColor = "dark_ma
                 onChange={(e) => onChangeAction(e.target.value)}>
                 {
                     listItem.map((item, index) =>
-                        <option value={item.value} key={index}>{item.title}</option>
+                        <option value={item.value} key={item + index}>{item.title}</option>
                     )
                 }
             </select>
