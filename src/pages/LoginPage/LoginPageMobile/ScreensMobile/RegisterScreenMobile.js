@@ -1,30 +1,38 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PassiveVewPasswordIcon from "../../../../components/icons/PasswordViewIcon/PassiveVewPasswordIcon";
 import ActiveViewPasswordIcon from "../../../../components/icons/PasswordViewIcon/ActiveViewPasswordIcon";
 import FacebookIcon from "../../../../components/icons/SocialNetworksIcon/FacebookIcon";
 import GoogleIcon from "../../../../components/icons/SocialNetworksIcon/GoogleIcon";
 
-const RegisterScreenMobile = ({setLoginView}) => {
-
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [passwordView, setPasswordView] = useState(false)
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [message, setMessage] = useState("")
-
+const RegisterScreenMobile = ({ setLoginView }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [passwordView, setPasswordView] = useState(false);
 
     const registerAction = () => {
         if (confirmPassword && email && password && confirmPassword === password) {
-            setLoginView(true)
+            setLoginView(true);
         } else {
-            setMessage("Bad input for register")
+            setMessage("Bad input for register");
         }
-    }
+    };
+
+    const isPasswordValid = () => {
+        // Пример валидации: пароль должен быть длиной минимум 8 символов
+        return password.length >= 8;
+    };
+
+    const isFormValid = () => {
+        return email && isPasswordValid() && password === confirmPassword;
+    };
 
     return (
         <div className="flex justify-center items-center w-full flex-col pt-[1rem]">
             <h1 className="text-white text-h1 w-full">Sign up</h1>
             <p className="text-red rounded-default w-full text-default">{message}</p>
+
             <div className="flex flex-col mb-2 w-full  mt-[2rem]">
                 <div className="flex justify-between">
                     <label className="text-dark_text text-middle ">Email</label>
@@ -74,9 +82,11 @@ const RegisterScreenMobile = ({setLoginView}) => {
                 </div>
             </div>
 
-            <button disabled={!email || !password}
-                    className="bg-green mt-[1rem] drop-shadow-default py-[1.2rem] text-white rounded-default w-full text-gigant"
-                    onClick={registerAction}>Sign up
+            <button
+                disabled={!isFormValid()}
+                className={`bg-green mt-[1rem] drop-shadow-default py-[1.2rem] text-white rounded-default w-full text-gigant ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={registerAction}>
+                Sign up
             </button>
 
             <div className="flex flex-col w-full items-center mt-[2rem]">
@@ -100,7 +110,7 @@ const RegisterScreenMobile = ({setLoginView}) => {
             </div>
 
         </div>
-    )
+    );
 };
 
 export default RegisterScreenMobile;
