@@ -26,33 +26,39 @@ const LoginScreenMobile = ({wsRun, setLoginView}) => {
             return formBody
         }
         const loginAction = async () => {
-            let details = {
-                username: email,
-                password: password
-            }
-            const requestOptions = {
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                method: 'POST',
-                body: createFormBody(details)
-            }
-            let responseData
-            try {
-                responseData = await fetch(`${URL_HTTP}/users/login`, requestOptions).then(r => {
-                    return r.json()
-                })
-            } catch (e) {
-                console.log(e.message)
-            }
-            if (!responseData.detail) {
-                console.log(responseData)
-                localStorage.setItem("auth", responseData)
-                setMessage("")
-                navigate("/")
-                wsRun()
-            } else {
-                setMessage(responseData.detail)
-                setEmail("")
-                setPassword("")
+            // let details = {
+            //     username: email,
+            //     password: password
+            // }
+            // const requestOptions = {
+            //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            //     method: 'POST',
+            //     body: createFormBody(details)
+            // }
+            // let responseData
+            // try {
+            //     responseData = await fetch(`${URL_HTTP}/users/login`, requestOptions).then(r => {
+            //         return r.json()
+            //     })
+            // } catch (e) {
+            //     console.log(e.message)
+            // }
+            // if (!responseData.detail) {
+            //     console.log(responseData)
+            //     localStorage.setItem("auth", responseData)
+            //     setMessage("")
+            //     navigate("/")
+            //     wsRun()
+            // } else {
+            //     setMessage(responseData.detail)
+            //     setEmail("")
+            //     setPassword("")
+            // }
+            if (email === 'user@example.com' && password === 'String_123'  ){
+                    localStorage.setItem("auth", true)
+                    setMessage("")
+                    navigate("/")
+                    //wsRun()
             }
         }
 

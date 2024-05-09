@@ -1,0 +1,39 @@
+{
+  "id": 1,
+  "type": 1,
+  "number": 1,
+  "status": 1,
+  "charge": 1,
+  "temperature_MK": 1,
+  "data": {
+    "second": 1,
+    "minute": 2,
+    "hour": 3,
+    "day": 4,
+    "month": 5,
+    "year": 6
+  },
+  "controlerleack": {
+    "leack": 0
+  },
+  "controlermodule": {
+    "temperature": 1,
+    "humidity": 4,
+    "pressure": 5,
+    "gas": 5
+  },
+  "controlerenviroment": {
+    "temperature": 1,
+    "humidity": 4,
+    "pressure": 5,
+    "VOC": 6,
+    "gas1": 1,
+    "gas2": 2,
+    "gas3": 3,
+    "pm1": 4,
+    "pm25": 3,
+    "pm10": 4,
+    "fire": 4,
+    "smoke": 5
+  }
+}

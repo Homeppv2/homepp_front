@@ -1,163 +1,142 @@
-import {useNavigate} from "react-router-dom"
-import {useEffect, useRef, useState} from "react";
-import LoginPageMobile from "./pages/LoginPage/LoginPageMobile/LoginPageMobile";
-import NotificationModalMobile from "./components/shared/NotificationModalMobile/NotificationModalMobile";
-import MainPageMobile from "./pages/MainPage/MainPageMobile/MainPageMobile";
-import SettingsPageMobile from "./pages/SettingsPage/SettingsPageMobile/SettingsPageMobile";
-import ScenesPageMobile from "./pages/ScenesPage/ScenesPageMobile/ScenesPageMobile";
-import Menu from "./components/ui/Menu/Menu";
-import Header from "./components/ui/Header/Header/Header";
-import MainPage from "./pages/MainPage/MainPage/MainPage";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const URL_WS = `ws://194.67.78.39:8001/controllers/connect/ws`
-export const URL_HTTP = `http://194.67.78.39:8001`
-export const MAX_GAS_SENSOR = 100
-export const GAS_SENSOR_TYPE = 'gas'
-export const MAX_SMOKE_SENSOR = 100
-export const WATER_SENSOR_TYPE = 'water'
-export const MAX_WATER_SENSOR = 100
-export const SMOKE_SENSOR_TYPE = 'smoke'
-export const AIR_QUALITY_SENSOR_TYPE = 'air_quality'
+import LoginPageMobile from "/root/homepp_front-master_weather+time/src/pages/LoginPage/LoginPageMobile/LoginPageMobile.js";
+import NotificationModalMobile from "/root/homepp_front-master_weather+time/src/components/shared/NotificationModalMobile/NotificationModalMobile.js";
+import MainPageMobile from "/root/homepp_front-master_weather+time/src/pages/MainPage/MainPageMobile/MainPageMobile.js";
+import SettingsPageMobile from "/root/homepp_front-master_weather+time/src/pages/SettingsPage/SettingsPageMobile/SettingsPageMobile.js";
+import ScenesPageMobile from "/root/homepp_front-master_weather+time/src/pages/ScenesPage/ScenesPageMobile/ScenesPageItemMobile/ScenesPageItemMobile.js";
+import Menu from "/root/homepp_front-master_weather+time/src/components/ui/Menu/Menu.js";
+import Header from "/root/homepp_front-master_weather+time/src/components/ui/Header/Header/Header.js";
+import MainPage from "/root/homepp_front-master_weather+time/src/pages/MainPage/MainPage/MainPage.js";
 
-function App({route}) {
+export const URL_WS = `ws://95.163.229.198:8001/login`;
+export const URL_HTTP = `http://95.163.229.198:8001`;
 
-    const [innerWidth, setInnerWidth] = useState(window.innerWidth)
+export const MAX_GAS_SENSOR = 100;
+export const GAS_SENSOR_TYPE = 'gas';
+export const MAX_SMOKE_SENSOR = 100;
+export const SMOKE_SENSOR_TYPE = 'smoke';
+export const MAX_WATER_SENSOR = 100;
+export const WATER_SENSOR_TYPE = 'water';
+export const AIR_QUALITY_SENSOR_TYPE = 'air_quality';
 
-    window.addEventListener('resize', function (event) {
-        setInnerWidth(window.innerWidth)
-    }, true);
-
-    const navigate = useNavigate()
-    const render = useRef(false)
-    const [socket, setSocket] = useState()
-    const [notificationIsPresent, setNotificationIsPresent] = useState(false)
+function App({ route }) {
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+    const navigate = useNavigate();
+    const render = useRef(false);
+    const [socket, setSocket] = useState(null);
+    const [notificationIsPresent, setNotificationIsPresent] = useState(false);
     const [message, setMessage] = useState({});
-    const [badMessage, setBadMessage] = useState({})
-    const [connectionStatusWS, setConnectionStatusWS] = useState(false)
+    const [badMessage, setBadMessage] = useState({});
+    const [connectionStatusWS, setConnectionStatusWS] = useState(false);
+    const isAuth = localStorage.getItem("auth");
 
-    let isAuth = localStorage.getItem("auth")
+    useEffect(() => {
+        const wsRun = new WebSocket(URL_WS);
+        setSocket(wsRun);
 
-    const wsRun = () => {
-
-        let socket = new WebSocket(URL_WS + `?session_id=${localStorage.getItem("auth")}`)
-        socket.onopen = () => {
-            setConnectionStatusWS(true)
+        wsRun.onopen = function () {
+            setConnectionStatusWS(true);
+            console.log('WebSocket connected');
+            wsRun.send(JSON.stringify({
+                email: "admin@admin.com",
+                password: "admin",
+            }));
         };
 
-        socket.onmessage = (e) => {
-            const receivedMessage = JSON.parse(e.data);
-            setMessage(receivedMessage);
-            const currentMessage = {...receivedMessage}
-            if (receivedMessage.message && receivedMessage.type) {
-                const gasIsBad = receivedMessage.type === GAS_SENSOR_TYPE && receivedMessage.message >= MAX_GAS_SENSOR
-                const smokeIsBad = receivedMessage.type === SMOKE_SENSOR_TYPE && receivedMessage.message >= MAX_SMOKE_SENSOR
-                const waterIsBad = receivedMessage.type === WATER_SENSOR_TYPE && receivedMessage.message >= MAX_WATER_SENSOR
-                if (gasIsBad || smokeIsBad || waterIsBad) {
-                    setNotificationIsPresent(true)
-                    setBadMessage(currentMessage)
-                }
+        wsRun.onmessage = function (event) {
+            console.log('Получены данные', event.data);
+            console.log('Тип данных',typeof JSON.parse(event.data));
+            const parsedData = JSON.parse(event.data);
+            console.log('parsedData:', parsedData);
+            setMessage(parsedData);
+        };
+
+
+        wsRun.onclose = function () {
+            console.log('WebSocket disconnected');
+            setConnectionStatusWS(false);
+        };
+
+        return () => {
+            wsRun.close();
+        };
+    }, []);
+
+    const handleSensorMessage = useCallback((receivedMessage) => {
+        if (receivedMessage.message && receivedMessage.type) {
+            const { type, message: sensorMessage } = receivedMessage;
+            if ((type === GAS_SENSOR_TYPE && sensorMessage >= MAX_GAS_SENSOR) ||
+                (type === SMOKE_SENSOR_TYPE && sensorMessage >= MAX_SMOKE_SENSOR) ||
+                (type === WATER_SENSOR_TYPE && sensorMessage >= MAX_WATER_SENSOR)) {
+                setNotificationIsPresent(true);
+                setBadMessage(receivedMessage);
             }
-        };
-        setSocket(socket)
-
-        socket.onclose = () => {
-            setConnectionStatusWS(false)
         }
+    }, []);
 
-        socket.onerror = (error) => {
-            socket.close()
+    const closeWs = useCallback(() => {
+        if (socket) {
+            socket.close();
         }
-    }
+    }, [socket]);
 
-    const closeWs = () => {
-        socket.close()
-    }
-
-    const logOut = async () => {
+    const logOut = useCallback(async () => {
         const requestOptions = {
             method: 'POST',
             credentials: 'same-origin'
+        };
+
+        try {
+            const responseData = await fetch(`${URL_HTTP}/users/logout`, requestOptions).then(r => r.json());
+
+            if (responseData && !responseData.detail) {
+                localStorage.removeItem("auth");
+                closeWs();
+            } else {
+                console.log(responseData);
+            }
+        } catch (error) {
+            console.error("Logout Error:", error);
         }
-        let responseData = await fetch(`${URL_HTTP}/users/logout`, requestOptions).then(r => {
-            return r.json()
-        })
-        console.log(responseData.detail)
-        if (!responseData.detail) {
-            localStorage.removeItem("auth")
-            wsRun()
-        } else {
-            console.log(responseData)
-        }
-        localStorage.removeItem("auth")
-        navigate("../login")
-        closeWs()
-    }
+
+        localStorage.removeItem("auth");
+        navigate("../login");
+    }, [navigate, closeWs]);
 
     useEffect(() => {
-        if (!isAuth) {
-            navigate("../login")
-        } else {
-            if (!render.current) {
-                render.current = true
-                wsRun()
-            }
-        }
-    }, [isAuth])
+        const handleResize = () => setInnerWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <>
-            {
-                innerWidth < 650 &&
+            {innerWidth < 650 && (
                 <div className="flex justify-center items-center w-full h-full">
                     <div className="relative min-w-320px min-h-650px w-full h-full bg-dark_main_bg">
-                        {
-                            isAuth
-                                ?
-                                {
-                                    "main": <MainPageMobile message={message} actionLogOut={() => logOut()}
-                                                            connectionStatusWS={connectionStatusWS}/>,
-                                    "settings": <SettingsPageMobile actionLogOut={() => logOut()}/>,
-                                    "scenes": <ScenesPageMobile actionLogOut={() => logOut()}/>
-                                }[route]
-                                :
-                                <LoginPageMobile wsRun={() => wsRun()}/>
-                        }
-                        {
-                            (notificationIsPresent && isAuth) &&
-                            <NotificationModalMobile closeAction={() => setNotificationIsPresent((prev) => !prev)}
-                                                     message={{...badMessage}}/>
-                        }
+                        {isAuth ? {
+                            main: <MainPageMobile key="mainPageMobile" message={message} actionLogOut={logOut} connectionStatusWS={connectionStatusWS} />,
+                            settings: <SettingsPageMobile key="settingsPageMobile" actionLogOut={logOut} />,
+                            scenes: <ScenesPageMobile key="scenesPageMobile" actionLogOut={logOut} />
+                        }[route] : <LoginPageMobile key="loginPageMobile" />}
+                        {notificationIsPresent && <NotificationModalMobile closeAction={() => setNotificationIsPresent(prev => !prev)} message={{ ...badMessage }} />}
                     </div>
                 </div>
-            }
-            {
-                innerWidth >= 650 && isAuth &&
-                <div
-                    className="w-full h-full bg-dark_light_bg grid grid-cols-[minmax(25rem,_1fr)_5fr] grid-rows-[9rem_auto] pr-[2rem] pb-[2rem]">
-                    <Menu actionLogOut={() => logOut()}/>
-                    <Header/>
+            )}
+            {innerWidth >= 650 && isAuth && (
+                <div className="w-full h-full bg-dark_light_bg grid grid-cols-[minmax(25rem,_1fr)_5fr] grid-rows-[9rem_auto] pr-[2rem] pb-[2rem]">
+                    <Menu actionLogOut={logOut} />
+                    <Header />
                     <main className="bg-dark_main_bg rounded-[2.5rem] overflow-auto">
-                        {
-                            isAuth &&
-                            {
-                                "main": <MainPage message={message}
-                                                  connectionStatusWS={connectionStatusWS}/>,
-                            }[route]
-                        }
+                        {isAuth && route === 'main' && <MainPage key="mainPage" message={message} connectionStatusWS={connectionStatusWS} />}
                     </main>
                 </div>
-            }
-            {
-                (notificationIsPresent && isAuth) &&
-                <NotificationModalMobile closeAction={() => setNotificationIsPresent((prev) => !prev)}
-                                         message={{...badMessage}}/>
-            }
-            {
-                innerWidth >= 650 && !isAuth &&
-                <LoginPageMobile wsRun={() => wsRun()}/>
-            }
+            )}
+            {notificationIsPresent && <NotificationModalMobile closeAction={() => setNotificationIsPresent(prev => !prev)} message={{ ...badMessage }} />}
+            {innerWidth >= 650 && !isAuth && <LoginPageMobile />}
         </>
-
     );
 }
 
